@@ -57,11 +57,15 @@ public class StudentServlet extends HttpServlet {
         for (String name : names) {
             grades.put(name, Students.getGrade(client, name));
         }
+        Map<String, Integer> studentScoreMap = Students.getStudentAssessments(client);
         req.setAttribute("tenantMap", firstOne);
         req.setAttribute("grades", grades);
+        req.setAttribute("studentScoreMap",studentScoreMap);
+        for(String key : studentScoreMap.keySet()){
+        	System.out.println("StudentId: " + key + " Grade: " + studentScoreMap.get(key));
+        }
         req.setAttribute("roles", roles);
         req.setAttribute("accessRights", accessRights);
-        req.setAttribute("students", names);
         req.getRequestDispatcher("WEB-INF/students.jsp").forward(req, resp);
     }
 
